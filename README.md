@@ -19,8 +19,8 @@ To run the simulation just use one of the compiled file we provided. If none of 
 
 ## Authors
 
-* **Clement Dulouard** - *Initial work* - [CDulouard](https://github.com/https://github.com/CDulouard)
-* **Thibault Pierga** - *Contributor* - [Tpierga](https://github.com/https://github.com/Tpierga)
+* **Clement Dulouard** - *Initial work* - [CDulouard](https://github.com/CDulouard)
+* **Thibault Pierga** - *Contributor* - [Tpierga](https://github.com/Tpierga)
 
 ## License
 
