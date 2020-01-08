@@ -24,5 +24,5 @@ To run the simulation just use one of the compiled file we provided. If none of 
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/CDulouard/ProrokSim_v2/blob/master/LICENSE) file for details
 
