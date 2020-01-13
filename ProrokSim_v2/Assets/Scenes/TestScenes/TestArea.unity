@@ -612,10 +612,10 @@ HingeJoint:
     spring: 0
     damper: 0
     targetPosition: 0
-  m_UseMotor: 1
+  m_UseMotor: 0
   m_Motor:
-    targetVelocity: -82.55
-    force: 1000
+    targetVelocity: 0
+    force: 0
     freeSpin: 0
   m_UseLimits: 0
   m_Limits:
@@ -641,6 +641,7 @@ GameObject:
   - component: {fileID: 294550225313157512}
   - component: {fileID: 3624599482036626333}
   - component: {fileID: 3624599482036626332}
+  - component: {fileID: 3624599482036626334}
   m_Layer: 0
   m_Name: TestUnit1
   m_TagString: Untagged
@@ -678,6 +679,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3624599482036626334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3624599482036626331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 289c5881efa02d6449c5dba2cd51d527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lDCMotors:
+  - name: WRF
+    hJoint: {fileID: 4098441470715231485}
+    speed: 100
+    torque: 1000
+  - name: WLF
+    hJoint: {fileID: 3647110624329250227}
+    speed: 100
+    torque: 1000
 --- !u!1 &3647110624329250224
 GameObject:
   m_ObjectHideFlags: 0
@@ -1073,8 +1095,8 @@ HingeJoint:
     targetPosition: 0
   m_UseMotor: 0
   m_Motor:
-    targetVelocity: -82.55
-    force: 1000
+    targetVelocity: 0
+    force: 0
     freeSpin: 0
   m_UseLimits: 0
   m_Limits:
@@ -1325,13 +1347,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4199601318585512960}
-  m_LocalRotation: {x: 6.211317e-15, y: 1, z: -0.00000008146034, w: 0.0000000754979}
+  m_LocalRotation: {x: -0.00000006844959, y: 0.54215103, z: -0.000000044163823, w: 0.8402811}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 294550225313157512}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 65.66, z: 0}
 --- !u!4 &8344665843246456941
 Transform:
   m_ObjectHideFlags: 0
