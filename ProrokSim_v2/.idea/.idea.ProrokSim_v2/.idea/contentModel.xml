@@ -10,9 +10,6 @@
           <e p="Physic" t="Include">
             <e p="Controller.cs" t="Include" />
             <e p="DCMotor.cs" t="Include" />
-          </e>
-          <e p="Test" t="Include">
-            <e p="Motor.cs" t="Include" />
             <e p="Servo.cs" t="Include" />
           </e>
         </e>

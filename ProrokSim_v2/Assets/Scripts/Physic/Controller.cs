@@ -5,13 +5,25 @@ using UnityEngine;
 public class Controller : MonoBehaviour
 {
     public List<DCMotor> lDCMotors;
+    public List<Servo> lServo;
+
+    //public Dictionary<DCMotor, int> dDCMotors;
+
+    //public Dictionary<Servo, int> dServo;
     // Start is called before the first frame update
     void Start()
     {
         foreach (var dcMotor in lDCMotors)
         {
-             dcMotor.StartMotor();   
+            dcMotor.StartMotor();
         }
+
+        foreach (var servo in lServo)
+        {
+            servo.StartMotor();
+            Debug.Log(servo.name);
+        }
+        
     }
 
     // Update is called once per frame
@@ -20,9 +32,15 @@ public class Controller : MonoBehaviour
         foreach (var dcMotor in lDCMotors)
         {
             dcMotor.RefreshMotor();
-            Debug.Log(dcMotor.GetSpeed());
-        }    
-        
+            //Debug.Log(dcMotor.GetSpeed());
+        }
+
+        foreach (var servo in lServo)
+        {
+            servo.RefreshMotor();
+            Debug.Log(servo.name);
+            //Debug.Log(servo.GetAngle());
+        }
         
     }
 }
