@@ -22,9 +22,9 @@ public class Servo
 
 
     //Correction
-    public float kp;
-    public float ki;
-    public float kd;
+    private float kp = 4.29f ;
+    private float ki = 0.888f;
+    private float kd = 0.2815f;
 
     //Private variable for correction
     private float _sumError;
@@ -85,7 +85,7 @@ public class Servo
         hJoint.limits = hJointLim;
     }
 
-    //This function create a new variable to store the motor of the hinge joint, set speed and torque value and restore it in the original motor
+    //This function creates a new variable to store the motor of the hinge joint, set speed and torque value and restore it in the original motor
     //This function will be called multiple times in update method of controller
     public void RefreshMotor()
     {
@@ -148,12 +148,12 @@ public class Servo
             {
                 sum += _lSpeed[i];
             }
-
+            
             //iterate comptspeed which is the index of tmpspeed in list lSpeed
             _cmptSpeed = (_cmptSpeed + 1) % Lenlspeed;
             _angularSpeed = sum / Lenlspeed;
         }
-
         _prevPos = angle;
     }
+    
 }

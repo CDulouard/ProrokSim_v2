@@ -304,6 +304,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1491084474
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1491084475}
+  m_Layer: 0
+  m_Name: Lidar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1491084475
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491084474}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.1, z: 24.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2616261459274619758}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1678252291
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,7 +570,8 @@ Transform:
   m_LocalRotation: {x: 6.211317e-15, y: 1, z: -0.00000008146034, w: 0.0000000754979}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1491084475}
   m_Father: {fileID: 294550225313157512}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -642,6 +673,7 @@ GameObject:
   - component: {fileID: 3624599482036626333}
   - component: {fileID: 3624599482036626332}
   - component: {fileID: 3624599482036626334}
+  - component: {fileID: 3624599482036626335}
   m_Layer: 0
   m_Name: TestUnit1
   m_TagString: Untagged
@@ -692,35 +724,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lDCMotors:
-  - name: WRF
-    hJoint: {fileID: 4098441470715231485}
-    speed: 0
-    torque: 1000
   - name: WLF
     hJoint: {fileID: 3647110624329250227}
     speed: 0
-    torque: 1000
+    torque: 500
+  - name: WRF
+    hJoint: {fileID: 4098441470715231485}
+    speed: 0
+    torque: 500
+  - name: WRB
+    hJoint: {fileID: 3091299356768487374}
+    speed: 0
+    torque: 500
+  - name: WLB
+    hJoint: {fileID: 4251075031546451192}
+    speed: 0
+    torque: 500
   lServo:
-  - name: 
+  - name: booby
     hJoint: {fileID: 4127568792088072545}
-    targetPos: 20
-    torque: 500
+    targetPos: 0
+    torque: 486.56
     offsetHoming: {x: 0, y: 0, z: 0}
     minAngle: 0
     maxAngle: 0
-    kp: 4.29
-    ki: 0.888
-    kd: 0.2815
-  - name: 
+  - name: lololol
     hJoint: {fileID: 4199601318585512963}
-    targetPos: 20
-    torque: 500
+    targetPos: 0
+    torque: 494.51
     offsetHoming: {x: 0, y: 0, z: 0}
     minAngle: 0
     maxAngle: 0
-    kp: 4.29
-    ki: 0.888
-    kd: 0.2815
+--- !u!114 &3624599482036626335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3624599482036626331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dd8e9d202281484aaa55c9a27799b71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rayRange: 5
+  horizontalRange: 20
+  verticalRange: 5
+  horizontalStep: 2
+  verticalStep: 2
+  horizontalOffset: 0
+  verticalOffset: 5
+  lidar: {fileID: 1491084474}
 --- !u!1 &3647110624329250224
 GameObject:
   m_ObjectHideFlags: 0
