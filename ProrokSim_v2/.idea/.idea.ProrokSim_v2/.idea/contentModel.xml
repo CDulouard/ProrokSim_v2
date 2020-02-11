@@ -9,8 +9,10 @@
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
           <e p="Physic" t="Include">
+            <e p="CameraController.cs" t="Include" />
             <e p="Controller.cs" t="Include" />
             <e p="DCMotor.cs" t="Include" />
+            <e p="IMU.cs" t="Include" />
             <e p="Lidar.cs" t="Include" />
             <e p="LidarPoint.cs" t="Include" />
             <e p="Servo.cs" t="Include" />

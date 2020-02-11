@@ -10,7 +10,7 @@ public class Controller : MonoBehaviour
     };
     public Dictionary<string, float> dDCMotors = new Dictionary<string, float>()
     {
-        {"WRF", 0}, {"WLF", 0}, {"WRB", 0}, {"WLB", 0}
+        {"WRF", 200}, {"WLF", 200}, {"WRB", 200}, {"WLB", 200}
     };
     
     public List<DCMotor> lDCMotors;
@@ -52,7 +52,7 @@ public class Controller : MonoBehaviour
         foreach (var servo in lServo)
         {
             servo.RefreshMotor();
-            Debug.Log(servo.name);
+            //Debug.Log(servo.name);
             //Debug.Log(servo.GetAngle());
         }
     }
