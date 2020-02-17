@@ -72,4 +72,9 @@ public class DCMotor
 
         _prevPos = angle;
     }
+
+    public void SetTargetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+    }
 }

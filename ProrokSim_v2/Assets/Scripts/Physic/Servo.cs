@@ -155,5 +155,9 @@ public class Servo
         }
         _prevPos = angle;
     }
-    
+
+    public void SetTargetPos(float newPos)
+    {
+        targetPos = newPos;
+    }
 }

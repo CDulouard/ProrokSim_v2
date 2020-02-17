@@ -789,7 +789,6 @@ GameObject:
   - component: {fileID: 3624599482036626332}
   - component: {fileID: 3624599482036626334}
   - component: {fileID: 3624599482036626335}
-  - component: {fileID: 3624599482036626336}
   - component: {fileID: 3624599482036626337}
   m_Layer: 0
   m_Name: TestUnit1
@@ -892,20 +891,6 @@ MonoBehaviour:
   horizontalOffset: 0
   verticalOffset: 5
   lidar: {fileID: 1491084474}
---- !u!114 &3624599482036626336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3624599482036626331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0282baeb175b20243a6e063d7074a3e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  cameraObject: {fileID: 1719630408}
 --- !u!114 &3624599482036626337
 MonoBehaviour:
   m_ObjectHideFlags: 0

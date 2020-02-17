@@ -4,25 +4,26 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
-    public Dictionary<string, float> dServo =   new Dictionary<string, float>()
-    {
-        {"booby", 5}, {"lololol", 45} 
-    };
-    public Dictionary<string, float> dDCMotors = new Dictionary<string, float>()
-    {
-        {"WRF", 200}, {"WLF", 200}, {"WRB", 200}, {"WLB", 200}
-    };
-    
+    private Dictionary<string, Servo> _dServo = new Dictionary<string, Servo>();
+    private Dictionary<string, DCMotor> _dDCMotors = new Dictionary<string, DCMotor>();
+
     public List<DCMotor> lDCMotors;
     public List<Servo> lServo;
 
-    //public Dictionary<DCMotor, int> dDCMotors;
 
-    //public Dictionary<Servo, int> dServo;
+    private Dictionary<string, float> cServo = new Dictionary<string, float>()
+    {
+        {"booby", 50f}, {"lololol", 45f}, {"machin", 32f}
+    };
+    private Dictionary<string, float> cDCMotors = new Dictionary<string, float>()
+    {
+        {"WLF", 300}, {"WRF", 300}, {"blop", 233}
+    };
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Init();
         //InitServoFromDic(Dictionary<string, float> dServo, List<Servo> lServo)
         
         foreach (var dcMotor in lDCMotors)
@@ -33,63 +34,64 @@ public class Controller : MonoBehaviour
         foreach (var servo in lServo)
         {
             servo.StartMotor();
-            Debug.Log(servo.name);
         }
+        
+        //Recupérer les valeurs de nom et pos des moteurs pour créer les dictionnaires
         
     }
     
     // Update is called once per frame
     void Update()
+    {    
+        RefreshServoPos(cServo);
+        RefreshDCMotorSpeed(cDCMotors);
+        
+        RefreshServoMotors();
+        RefreshDCMotors();
+
+
+    }
+
+    //Initialize the motors 
+    private void Init()
     {
-        lServo =  SetServoFromDic(dServo, lServo);
-        lDCMotors = SetDCMotorsFromDic(dDCMotors, lDCMotors);
         foreach (var dcMotor in lDCMotors)
         {
-            dcMotor.RefreshMotor();
-            //Debug.Log(dcMotor.GetSpeed());
+            _dDCMotors[dcMotor.name] = dcMotor;
         }
 
         foreach (var servo in lServo)
         {
-            servo.RefreshMotor();
-            //Debug.Log(servo.name);
-            //Debug.Log(servo.GetAngle());
+            _dServo[servo.name] = servo;
         }
+        
     }
     
-    public List<Servo> InitServoFromDic(Dictionary<string, float> dServo, List<Servo> lServo)
-    {
-        //set Target speed or target pos
-        //set number of items
-        List<Servo> lServoNew = new List<Servo>();
 
-        foreach (var motorName in dServo.Keys)
-        {
-            Servo tempServo = new Servo();
-            tempServo.name = motorName;
-            tempServo.targetPos = dServo[motorName];
-            lServoNew.Add(tempServo);
-        }
-        return lServoNew;
-    }
-    
     //Fonction prenant en argument un dictionnaire contenant les noms et target pos des servo moteurs, et retournant la liste de servo moteurs avec les valeurs modifiées
-    public List<Servo> SetServoFromDic(Dictionary<string, float> dServo, List<Servo> lServo)
+    public void RefreshServoPos(Dictionary<string, float> commandServo)
     {
-        foreach (var motorName in dServo.Keys)
+        foreach (var command in commandServo)
         {
-            //find Motor in MServo where motorName==Servo.name
-            //lServo[Servo] = dServo[Servo.name]
-            foreach (var Motor in lServo)
+            if (IfExistsServo(command.Key))
             {
-                if (Motor.name == motorName)
-                {
-                    Motor.targetPos = dServo[motorName];
-                }
+                _dServo[command.Key].SetTargetPos(command.Value);
+
             }
         }
-        return lServo;
     }
+
+    public void RefreshDCMotorSpeed(Dictionary<string, float> commandDCMotor)
+    {
+        foreach (var command in commandDCMotor)
+        {
+            if (IfExistsDCMotor(command.Key))
+            {
+                _dDCMotors[command.Key].SetTargetSpeed(command.Value);
+            }
+        }
+    }
+    
     
     //Fonction prenant en argument un dictionnaire contenant les noms et target speed des dcmotors moteurs, et retournant la liste de moteurs avec les valeurs modifiées
     public List<DCMotor> SetDCMotorsFromDic(Dictionary<string, float> dDCMotors, List<DCMotor> lDCMotors)
@@ -107,5 +109,50 @@ public class Controller : MonoBehaviour
             }
         }
         return lDCMotors;
+    }
+
+    //call refreshMotor for every Servo
+    private void RefreshServoMotors()
+    {
+        foreach (var dcMotor in lDCMotors)
+        {
+            dcMotor.RefreshMotor();
+        }
+    }
+
+    //call refreshMotor for every DCMotors
+    private void RefreshDCMotors()
+    {
+        foreach (var servo in lServo)
+        {
+            servo.RefreshMotor();
+        }
+    }
+    
+    //Make sure the key exists
+    public bool IfExistsServo( string key)
+    {
+        foreach (var dicKey in _dServo.Keys)
+        {
+            if (dicKey==key)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool IfExistsDCMotor(string key)
+    {
+        foreach (var dicKey in _dDCMotors.Keys)
+        {
+            if (dicKey==key)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

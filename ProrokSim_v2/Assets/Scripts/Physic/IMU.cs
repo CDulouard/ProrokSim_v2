@@ -8,9 +8,9 @@ public class IMU : MonoBehaviour
 
     public GameObject Sensor;
     
-    private static Dictionary<string, float> _sensorValues;
+    private static Dictionary<string, float> _sensorValues; //static variable 
 
-    private static Dictionary<string, float> comparisonDictionary = new Dictionary<string, float>();
+    private static Dictionary<string, float> _comparisonDictionary = new Dictionary<string, float>();
     
     // Start is called before the first frame update
     void Start()
@@ -23,15 +23,15 @@ public class IMU : MonoBehaviour
         _sensorValues.Add("rotationAcceleration", 0);
         
         //Initialize the dictionary of buffer values to compute speed and acceleration
-        comparisonDictionary.Add("prevX", 0);
-        comparisonDictionary.Add("prevY", 0);
-        comparisonDictionary.Add("prevZ", 0);
-        comparisonDictionary.Add("postX", _sensorValues["X"]);
-        comparisonDictionary.Add("postY", _sensorValues["Y"]);
-        comparisonDictionary.Add("postZ", _sensorValues["Z"]);
+        _comparisonDictionary.Add("prevX", 0);
+        _comparisonDictionary.Add("prevY", 0);
+        _comparisonDictionary.Add("prevZ", 0);
+        _comparisonDictionary.Add("postX", _sensorValues["X"]);
+        _comparisonDictionary.Add("postY", _sensorValues["Y"]);
+        _comparisonDictionary.Add("postZ", _sensorValues["Z"]);
 
-        comparisonDictionary.Add("prevSpeed", 0);
-        comparisonDictionary.Add("postSpeed", 0);
+        _comparisonDictionary.Add("prevSpeed", 0);
+        _comparisonDictionary.Add("postSpeed", 0);
         
     }
 
@@ -42,30 +42,29 @@ public class IMU : MonoBehaviour
         _sensorValues = RefreshSensorValues();
         
         //buffer position values of previews frame (could make it an array of 10 values to have smoother values)
-        comparisonDictionary["prevX"] = comparisonDictionary["postX"];
-        comparisonDictionary["prevY"] = comparisonDictionary["postY"];
-        comparisonDictionary["prevZ"] = comparisonDictionary["postZ"];
-        comparisonDictionary["postX"] = _sensorValues["X"];
-        comparisonDictionary["postY"] = _sensorValues["Y"];
-        comparisonDictionary["postZ"] = _sensorValues["Z"];
+        _comparisonDictionary["prevX"] = _comparisonDictionary["postX"];
+        _comparisonDictionary["prevY"] = _comparisonDictionary["postY"];
+        _comparisonDictionary["prevZ"] = _comparisonDictionary["postZ"];
+        _comparisonDictionary["postX"] = _sensorValues["X"];
+        _comparisonDictionary["postY"] = _sensorValues["Y"];
+        _comparisonDictionary["postZ"] = _sensorValues["Z"];
 
         //compute speed with position of previews frame and actual frame
-        comparisonDictionary["prevSpeed"] = comparisonDictionary["postSpeed"];
-        var Speed = Mathf.Sqrt(Mathf.Pow(comparisonDictionary["postX"] - comparisonDictionary["prevX"], 2) +
-                               Mathf.Pow(comparisonDictionary["postY"] - comparisonDictionary["prevY"], 2) +
-                               Mathf.Pow(comparisonDictionary["postZ"] - comparisonDictionary["prevZ"], 2)) /
+        _comparisonDictionary["prevSpeed"] = _comparisonDictionary["postSpeed"];
+        var Speed = Mathf.Sqrt(Mathf.Pow(_comparisonDictionary["postX"] - _comparisonDictionary["prevX"], 2) +
+                               Mathf.Pow(_comparisonDictionary["postY"] - _comparisonDictionary["prevY"], 2) +
+                               Mathf.Pow(_comparisonDictionary["postZ"] - _comparisonDictionary["prevZ"], 2)) /
                     Time.deltaTime;
-        comparisonDictionary["postSpeed"] = Speed;
+        _comparisonDictionary["postSpeed"] = Speed;
         
         //compute acceleration with previews speed and actual speed
-        var Acceleration = (comparisonDictionary["postSpeed"] - comparisonDictionary["prevSpeed"]) / Time.deltaTime;
+        var Acceleration = (_comparisonDictionary["postSpeed"] - _comparisonDictionary["prevSpeed"]) / Time.deltaTime;
         
         //update sensorvalues for speed and acceleration
         _sensorValues["speed"] = Speed;
         _sensorValues["acceleration"] = Acceleration;
 
-        Debug.Log(_sensorValues["speed"]);
-        Debug.Log(_sensorValues["acceleration"]);
+
     }
 
     public static Dictionary<string, float> GetValues()
