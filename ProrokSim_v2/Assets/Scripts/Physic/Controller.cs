@@ -10,16 +10,6 @@ public class Controller : MonoBehaviour
     public List<DCMotor> lDCMotors;
     public List<Servo> lServo;
 
-
-    private Dictionary<string, float> cServo = new Dictionary<string, float>()
-    {
-        {"booby", 50f}, {"lololol", 45f}, {"machin", 32f}
-    };
-    private Dictionary<string, float> cDCMotors = new Dictionary<string, float>()
-    {
-        {"WLF", 300}, {"WRF", 300}, {"blop", 233}
-    };
-
     // Start is called before the first frame update
     void Start()
     {
@@ -43,13 +33,11 @@ public class Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {    
-        RefreshServoPos(cServo);
-        RefreshDCMotorSpeed(cDCMotors);
+        //RefreshServoPos(cServo);
+        //RefreshDCMotorSpeed(cDCMotors);
         
         RefreshServoMotors();
         RefreshDCMotors();
-
-
     }
 
     //Initialize the motors 
@@ -64,7 +52,6 @@ public class Controller : MonoBehaviour
         {
             _dServo[servo.name] = servo;
         }
-        
     }
     
 
