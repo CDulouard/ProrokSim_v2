@@ -1,0 +1,29 @@
+using Newtonsoft.Json;
+
+public class ConnectionMessage
+{
+    public string password;
+    public int verbose;
+
+    [JsonConstructor]
+    ConnectionMessage(string password, int verbose)
+    {
+        this.password = password;
+        this.verbose = verbose;
+    }
+    
+    public ConnectionMessage(string jsonString)
+    {
+        try
+        {
+            var msg = JsonConvert.DeserializeObject<ConnectionMessage>(jsonString);
+            password = msg.password;
+            verbose = msg.verbose;
+        }
+        catch (JsonReaderException e)
+        {
+            password = "";
+            verbose = 0;
+        }
+    }
+}
