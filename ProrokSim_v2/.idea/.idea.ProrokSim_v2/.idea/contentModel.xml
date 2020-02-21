@@ -16,10 +16,25 @@
             <e p="LidarPoint.cs" t="Include" />
             <e p="Servo.cs" t="Include" />
           </e>
+          <e p="Server" t="Include">
+            <e p="ConnectionMessage.cs" t="Include" />
+            <e p="Message.cs" t="Include" />
+            <e p="Packages" t="Include">
+              <e p="Newtonsoft.Json.12.0.3" t="Include">
+                <e p="lib" t="Include">
+                  <e p="net20" t="Include">
+                    <e p="Newtonsoft.Json.xml" t="Include" />
+                  </e>
+                </e>
+              </e>
+            </e>
+            <e p="UdpSocket.cs" t="Include" />
+          </e>
         </e>
       </e>
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
+      <e p="packages.config" t="Include" />
       <e p="ProrokSim_v2.sln" t="IncludeFlat" />
       <e p="Temp\bin" t="ExcludeRecursive" />
     </e>
