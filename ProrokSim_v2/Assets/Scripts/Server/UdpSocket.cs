@@ -1,17 +1,16 @@
 using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
-using System.Security.Cryptography;
-using ConsoleApplication;
+using Physic;
 using UnityEngine;
+//using ConsoleApplication;
 using Random = System.Random;
 
 
-namespace ConsoleApplication1
+namespace Server
 {
     public class UdpSocket
     {
@@ -75,7 +74,7 @@ namespace ConsoleApplication1
         ///    UdpSocket socket = new UdpSocket();
         ///    socket.Start("127.0.0.1", 27000);
         /// </code>
-        /// results in a new UdpSocket sored in socket variable and start it with ip 127.0.0.1 on port 27000.
+        /// results in a new UdpSocket stored in socket variable and start it with ip 127.0.0.1 on port 27000.
         /// </example>
         /// </summary>
         ///<param name="ipAddressServer">The ip address used to bind the socket on</param>
@@ -405,7 +404,11 @@ namespace ConsoleApplication1
              *
              * 
              * Message id = 101 incoming request for connection
+             * Message id =102 incoming dictionaries with servos target position and motor target speed
              * Message id = 201 answer to a connection request
+             * Message id = 202 answer to the request for the motors position and speed.
+             * Sending dictionaries with position for servos and speed for CCMotors
+             * Message id = 301 asking for motors position and speed
              */
             var rcvString = Encoding.ASCII.GetString(so.Buffer, 0, nBytes);
             if (!Message.IsMessage(rcvString))
@@ -464,6 +467,18 @@ namespace ConsoleApplication1
                                 new Message(201, "{" + '"' + "connection_status" + '"' + ": 1}").ToJson());
                             break;
                         
+                        case 102: // Translate Json to dictionaries and set Controller values
+                            /*
+                             * The json string is translated to two dictionaries with target values
+                             * Then the Set Method of class Controller is called
+                             */
+                            var target = new RobotCommandMessage(rcvMessage.message);
+                            Debug.Log(target.cc_motors_target_speed);
+                            Debug.Log(target.servomotors_target_position);
+                            _robotController.SetServoPos(target.servomotors_target_position);
+                            _robotController.SetDCMotorsSpeed(target.cc_motors_target_speed);
+                            break;
+                        
                         case 301: // Ask for Connection
                             /*
                              * The incoming message must be an empty message with id 301.    
@@ -471,9 +486,7 @@ namespace ConsoleApplication1
                              * {"id": 301, "parity": 0, "len": 0, "message": ""}
                              * If the password is correct then the default remote user is the origin of the request.
                              */
-
-
-
+                            
                             SendTo(_remoteUser, new Message(202, new RobotDataMessage(_robotController.GetServosData(), _robotController.GetDCMotorData()).ToJson()).ToJson());
                             break;
                         
@@ -482,6 +495,7 @@ namespace ConsoleApplication1
                             {
                                 Debug.Log("Unknown id");
                                 Debug.Log(rcvString);
+                                Debug.Log(rcvMessage.id);
                             }
 
                             break;
@@ -528,7 +542,7 @@ namespace ConsoleApplication1
                             {
                                 if (_verbose)
                                 {
-                                    Console.WriteLine("Message format not correct for connection");
+                                    Debug.Log("Message format not correct for connection");
                                 }
                             }
                             break;
@@ -544,7 +558,6 @@ namespace ConsoleApplication1
                 }
             }
         }
-
 
         /// <summary>This method returns the ping between two machines in ms.
         /// (<paramref name="ipAddress"/>) is the ip address of the machine to ping.

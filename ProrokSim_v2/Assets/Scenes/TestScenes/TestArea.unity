@@ -839,7 +839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 289c5881efa02d6449c5dba2cd51d527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ipServ: 192.168.43.81
+  ipServ: 127.0.0.1
   portServ: 50000
   lDCMotors:
   - name: WLF

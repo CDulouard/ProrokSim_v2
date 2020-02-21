@@ -1,13 +1,10 @@
-using System.Diagnostics;
+using System;
 using System.Linq;
-using System.Security;
+using System.Text;
+using Newtonsoft.Json;
 
-namespace ConsoleApplication1
+namespace Server
 {
-    using System;
-    using System.Text;
-    using Newtonsoft.Json;
-
     public class Message
     {
         public int id;

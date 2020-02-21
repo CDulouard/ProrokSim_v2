@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace ConsoleApplication1
+namespace Server
 {
     /*
      * This class represent the expected message to create a connection between two servers. The request id is 101 
