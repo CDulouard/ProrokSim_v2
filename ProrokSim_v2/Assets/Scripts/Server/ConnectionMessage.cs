@@ -1,29 +1,35 @@
 using Newtonsoft.Json;
 
-public class ConnectionMessage
+namespace ConsoleApplication1
 {
-    public string password;
-    public int verbose;
+    /*
+     * This class represent the expected message to create a connection between two servers. The request id is 101 
+     */
+    public class ConnectionMessage
+    {
+        public string password;
+        public int verbose;
 
-    [JsonConstructor]
-    ConnectionMessage(string password, int verbose)
-    {
-        this.password = password;
-        this.verbose = verbose;
-    }
-    
-    public ConnectionMessage(string jsonString)
-    {
-        try
+        [JsonConstructor]
+        ConnectionMessage(string password, int verbose)
         {
-            var msg = JsonConvert.DeserializeObject<ConnectionMessage>(jsonString);
-            password = msg.password;
-            verbose = msg.verbose;
+            this.password = password;
+            this.verbose = verbose;
         }
-        catch (JsonReaderException e)
+        
+        public ConnectionMessage(string jsonString)
         {
-            password = "";
-            verbose = 0;
+            try
+            {
+                var msg = JsonConvert.DeserializeObject<ConnectionMessage>(jsonString);
+                password = msg.password;
+                verbose = msg.verbose;
+            }
+            catch (JsonReaderException e)
+            {
+                password = "";
+                verbose = 0;
+            }
         }
     }
 }
