@@ -22,6 +22,7 @@
           <e p="Server" t="Include">
             <e p="ConnectionMessage.cs" t="Include" />
             <e p="Message.cs" t="Include" />
+            <e p="RobotCommandMessage.cs" t="Include" />
             <e p="RobotDataMessage.cs" t="Include" />
             <e p="UdpSocket.cs" t="Include" />
           </e>

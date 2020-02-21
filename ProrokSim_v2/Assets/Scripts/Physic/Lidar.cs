@@ -1,64 +1,66 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Lidar : MonoBehaviour
+namespace Physic
 {
-
-    public int rayRange; /*    lidar's range   */
-    public int horizontalRange; /*    half of lidar's horizontal angular range    */
-    public int verticalRange; /*    half of lidar's vertical angular range    */
-    public float horizontalStep; /*    angular step between to horizontal ray    */
-    public float verticalStep; /*    angular step between to vertical ray    */
-    public float horizontalOffset;    /*    horizontal offset the lidar (in degrees)     */
-    public float verticalOffset;    /*    vertical offset the lidar (in degrees)     */
-
-    public GameObject lidar;
-
-    private static IEnumerable<LidarPoint> _measures;
-
-    public static IEnumerable<LidarPoint> GetMeasures()
+    public class Lidar : MonoBehaviour
     {
-        /*    Return Lidar's datas    */
-        return _measures;
-    }
 
-    private void Start()
-    {
-        _measures = Scan();
-    }
+        public int rayRange; /*    lidar's range   */
+        public int horizontalRange; /*    half of lidar's horizontal angular range    */
+        public int verticalRange; /*    half of lidar's vertical angular range    */
+        public float horizontalStep; /*    angular step between to horizontal ray    */
+        public float verticalStep; /*    angular step between to vertical ray    */
+        public float horizontalOffset;    /*    horizontal offset the lidar (in degrees)     */
+        public float verticalOffset;    /*    vertical offset the lidar (in degrees)     */
 
-    private void Update()
-    {
-        _measures = Scan();
+        public GameObject lidar;
+
+        private static IEnumerable<LidarPoint> _measures;
+
+        public static IEnumerable<LidarPoint> GetMeasures()
+        {
+            /*    Return Lidar's datas    */
+            return _measures;
+        }
+
+        private void Start()
+        {
+            _measures = Scan();
+        }
+
+        private void Update()
+        {
+            _measures = Scan();
   
-    }
+        }
 
-    private IEnumerable<LidarPoint> Scan()
-    {
-        /*    Return all the point measured by the Lidar. Each point contain the horizontal angle,
+        private IEnumerable<LidarPoint> Scan()
+        {
+            /*    Return all the point measured by the Lidar. Each point contain the horizontal angle,
          *    the vertical angle and the distance between the Lidar and the hit object.
          */
-        var measures = new List<LidarPoint>();
-        var position = lidar.transform.position;
-        var lidarDirection = Quaternion.Euler(verticalOffset, horizontalOffset, 0) * lidar.transform.forward;
+            var measures = new List<LidarPoint>();
+            var position = lidar.transform.position;
+            var lidarDirection = Quaternion.Euler(verticalOffset, horizontalOffset, 0) * lidar.transform.forward;
 
-        for (float hAngle = -horizontalRange; hAngle <= horizontalRange; hAngle += horizontalStep)
-        {
-            for (float vAngle = -verticalRange; vAngle <= verticalRange; vAngle += verticalStep)
+            for (float hAngle = -horizontalRange; hAngle <= horizontalRange; hAngle += horizontalStep)
             {
-                var direction = Quaternion.Euler(vAngle, hAngle, 0) * lidarDirection;
-                if (Physics.Raycast(position, direction, out var hit, rayRange))
+                for (float vAngle = -verticalRange; vAngle <= verticalRange; vAngle += verticalStep)
                 {
-                    Debug.DrawRay(position, direction * hit.distance, Color.red);
+                    var direction = Quaternion.Euler(vAngle, hAngle, 0) * lidarDirection;
+                    if (Physics.Raycast(position, direction, out var hit, rayRange))
+                    {
+                        Debug.DrawRay(position, direction * hit.distance, Color.red);
+                    }
+                    else
+                    {
+                        Debug.DrawRay(position, direction * rayRange, Color.green);
+                    }
+                    measures.Add(new LidarPoint(hAngle, vAngle, hit.distance));
                 }
-                else
-                {
-                    Debug.DrawRay(position, direction * rayRange, Color.green);
-                }
-                measures.Add(new LidarPoint(hAngle, vAngle, hit.distance));
             }
+            return measures;
         }
-        return measures;
     }
 }
