@@ -1,14 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ConsoleApplication1;
 using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
+    public string ipServ;
+    public int portServ;
+    public UdpSocket server; 
+    
     private Dictionary<string, Servo> _dServo = new Dictionary<string, Servo>();
     private Dictionary<string, DCMotor> _dDCMotors = new Dictionary<string, DCMotor>();
 
     public List<DCMotor> lDCMotors;
     public List<Servo> lServo;
+    
 
 
     private Dictionary<string, float> cServo = new Dictionary<string, float>()
@@ -25,6 +31,8 @@ public class Controller : MonoBehaviour
     {
         Init();
         //InitServoFromDic(Dictionary<string, float> dServo, List<Servo> lServo)
+        server = new UdpSocket();
+        server.Start(ipServ, portServ, "test");
         
         foreach (var dcMotor in lDCMotors)
         {
